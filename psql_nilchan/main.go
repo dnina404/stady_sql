@@ -28,7 +28,7 @@ func main() {
 		panic(err)
 	}
 	*/
-	if err := simple_sql.UpdateRow(ctx,
+	/*if err := simple_sql.UpdateRow(ctx,
 		conn,
 		4,
 	); err != nil {
@@ -41,6 +41,14 @@ func main() {
 	); err != nil {
 		panic(err)
 	}
+	*/
 
+	tasks, err := simple_sql.SelectRows(ctx, conn)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(tasks)
 	fmt.Println("succeed!")
 }

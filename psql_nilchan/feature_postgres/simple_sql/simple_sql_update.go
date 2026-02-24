@@ -6,17 +6,25 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func UpdateRow(ctx context.Context,
+func UpdateRowTask(ctx context.Context,
 	conn *pgx.Conn,
-	id int,
+	task TaskModel,
 ) error {
 	sqlQuery := `
 	UPDATE tasks
-	SET completed = TRUE
-	WHERE id = $1
+	SET title = $1, description = $2, completed = $3, created_At = $4,  completed_at = $5
+	WHERE id = $6
 	`
 
-	_, err := conn.Exec(ctx, sqlQuery, id)
+	_, err := conn.Exec(ctx,
+		sqlQuery,
+		task.Title,
+		task.Description,
+		task.Completed,
+		task.CreatedAt,
+		task.CompletedAt,
+		task.ID,
+	)
 
 	return err
 }
